@@ -74,7 +74,7 @@ super.initState();
     if (!isDatabaseInitialized) return;
     final existingBookmark = await bookmarkDao.isBookmarked(widget.query);
     setState(() {
-      isBookmarked = existingBookmark != null;
+      isBookmarked = existingBookmark!=null;
     });
   }
 

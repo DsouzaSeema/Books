@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:book/login.dart';
 import 'package:book/main.dart';
-import 'package:book/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
