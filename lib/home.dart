@@ -4,6 +4,7 @@ import 'package:book/data/remote/book_response.dart';
 import 'package:book/data/remote/dio_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import 'book_details.dart';
 import 'more.dart';
@@ -64,9 +65,8 @@ late Timer _timer;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:discoverBooks.isEmpty || flutterBooks.isEmpty || popularBooks.isEmpty? Center(child: Text("Loading...",style: TextStyle(
-        fontSize: 30,fontWeight: FontWeight.w400
-      ),)):
+      body:discoverBooks.isEmpty || flutterBooks.isEmpty || popularBooks.isEmpty?
+      Center(child:Lottie.asset('assets/lottie/Animation_loading.json',height: 100,width: 100)):
       SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

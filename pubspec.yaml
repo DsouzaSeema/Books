@@ -40,6 +40,8 @@ dependencies:
   json_serializable: ^6.9.0
   floor: ^1.5.0
   sqflite: ^2.2.8+4
+  lottie: ^3.3.1
+
 
 
 dev_dependencies:
@@ -70,6 +72,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/lottie/Animation_loading.json
 
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
