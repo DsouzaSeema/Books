@@ -1,4 +1,4 @@
-import 'package:book/book_details.dart';
+import 'package:book/ui/book_details.dart';
 import 'package:book/data/remote/book_response.dart';
 import 'package:book/data/local/bookmarkDao.dart';
 import 'package:book/data/local/bookmark_entity.dart';

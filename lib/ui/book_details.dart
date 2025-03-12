@@ -46,8 +46,8 @@ super.initState();
 
       if (books.isNotEmpty) {
         setState(() {
-          bookDetails = books.first; // Assign first book to bookDetails
-          similarBooks = books.skip(1).toList(); // Remaining books are similar books
+          bookDetails = books.first;
+          similarBooks = books.skip(1).toList();
         });
       } else {
         setState(() {
@@ -121,7 +121,7 @@ super.initState();
                       height: 300,
                       fit: BoxFit.fill,
                     )
-                        : Icon(Icons.book),
+                        : Image.asset("assets/images/book.jpeg",height:300 ,width: 300,fit: BoxFit.fill,),
                 ),
             ),
             ),
@@ -180,7 +180,8 @@ super.initState();
                         ),
                       ),
                     );
-                  }),
+                  }
+                  ),
             ),
                 SizedBox(height: 2,)
           ],

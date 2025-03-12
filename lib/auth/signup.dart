@@ -1,5 +1,5 @@
 
-import 'package:book/login.dart';
+import 'package:book/auth/login.dart';
 import 'package:book/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,11 +12,8 @@ class SignUp extends StatefulWidget{
 
 class _SignUpState extends State<SignUp> {
   final emailController=TextEditingController();
-
   final newPassController=TextEditingController();
-
   final confPassController=TextEditingController();
-
   final firebaseAuth=FirebaseAuth.instance;
 
   @override

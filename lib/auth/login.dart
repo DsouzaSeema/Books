@@ -1,5 +1,5 @@
 import 'package:book/main.dart';
-import 'package:book/signup.dart';
+import 'package:book/auth/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

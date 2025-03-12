@@ -1,9 +1,9 @@
-import 'package:book/book_details.dart';
+import 'package:book/ui/book_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'data/remote/book_response.dart';
-import 'data/remote/dio_service.dart';
+import '../data/remote/book_response.dart';
+import '../data/remote/dio_service.dart';
 
 class More extends StatefulWidget{
   final String query;
@@ -63,7 +63,8 @@ class _MoreState extends State<More>{
                         child: Column(
                           children: [
                             books.imageUrl!=null?
-                            Image.network(books.imageUrl!,height: 200,width: 200,fit: BoxFit.fill,):Center(child: Icon(Icons.book,size: 200,)),
+                            Image.network(books.imageUrl!,height: 200,width: 200,fit: BoxFit.fill,)
+                                :Center(child: Image.asset("assets/images/book.jpeg",width: 200,height: 200,fit:BoxFit.fill)),
                             SizedBox(height: 4,),
                             Text(books.title??"No title",overflow: TextOverflow.ellipsis,)
                           ],
@@ -76,11 +77,13 @@ class _MoreState extends State<More>{
             );
           },
           itemCount: 10,
-          gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate:SliverGridDelegateWithFixedCrossAxisCount
+            (
               crossAxisCount: 2,
           mainAxisSpacing: 11,
           crossAxisSpacing: 11,
-          childAspectRatio: 0.7) ,
+          childAspectRatio: 0.7
+          ) ,
 
 
         ),

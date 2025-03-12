@@ -1,11 +1,12 @@
-import 'package:book/book_details.dart';
+import 'package:book/ui/book_details.dart';
 import 'package:book/data/remote/book_response.dart';
-import 'package:book/bookmark.dart';
+import 'package:book/ui/bookmark/bookmark.dart';
 import 'package:book/data/remote/dio_service.dart';
-import 'package:book/home.dart';
-import 'package:book/login.dart';
-import 'package:book/logout.dart';
-import 'package:book/splash_screen.dart';
+import 'package:book/ui/home.dart';
+import 'package:book/auth/login.dart';
+import 'package:book/auth/logout.dart';
+import 'package:book/ui/splash_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -44,6 +45,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController search = TextEditingController();
   List<BookResponse> searchResults=[];
   final dioService _dioService=dioService();
+  final firebaseAuth=FirebaseAuth.instance;
+
 
 
   void updateSearchResults(String query) async{
@@ -104,8 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(width: 10,),
                     SizedBox(width: 60,
                       child: ElevatedButton(onPressed: (){
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LogOut()));
-
+                          logout(context);
                       },
                           child: Icon(Icons.logout,semanticLabel:"LogOut"),
                       ),
@@ -173,4 +175,10 @@ Widget searchBar()
 
 
 }
+
+  void logout(BuildContext context) async{
+    await firebaseAuth.signOut();
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LogOut()));
+
+  }
 }

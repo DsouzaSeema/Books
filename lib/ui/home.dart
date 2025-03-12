@@ -5,53 +5,30 @@ import 'package:book/data/remote/dio_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-
+import 'package:carousel_slider/carousel_slider.dart';
 import 'book_details.dart';
 import 'more.dart';
 
 class Home extends StatefulWidget{
   @override
   State<StatefulWidget> createState() =>_Home();
-
 }
+
 class _Home extends State<Home> {
  final dioService _dioService=dioService();
- final ScrollController _scrollController=ScrollController();
+
  List<BookResponse> discoverBooks=[];
  List<BookResponse> flutterBooks=[];
  List<BookResponse> popularBooks=[];
-int _currentIndex=0;
-late Timer _timer;
+ int _currentIndex=0;
+
 
  @override
   void initState() {
     fetchAllBooks();
-    _startAutoScroll();
     super.initState();
   }
 
-  void _startAutoScroll(){
-   _timer=Timer.periodic(Duration(seconds: 3),(timer){
-     if(_scrollController.hasClients){
-       double nextOffset=(_currentIndex+1)*370;
-       if(nextOffset>=_scrollController.position.maxScrollExtent){
-         _scrollController.animateTo(0, duration: Duration(seconds: 1), curve: Curves.easeInOut);
-         _currentIndex=0;
-       }else{
-         _scrollController.animateTo(nextOffset, duration: Duration(seconds: 1), curve: Curves.easeInOut,);
-         _currentIndex++;
-       }
-     }
-   }
-   );
-  }
-
-  @override
-  void dispose(){
-   _timer.cancel();
-   _scrollController.dispose();
-   super.dispose();
-  }
 
   Future<void> fetchAllBooks() async{
    discoverBooks=await _dioService.fetchBooks("best seller");
@@ -84,11 +61,9 @@ late Timer _timer;
                 width: 350,
                 height: 350,
                 color: Colors.blue.shade50,
-                child: ListView.builder(
-                  controller: _scrollController,
+                child: CarouselSlider.builder(
                   itemCount: 10,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
+                  itemBuilder: (context, index,realIndex) {
                     BookResponse dBook=discoverBooks[index];
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -101,11 +76,28 @@ late Timer _timer;
                               child:
                               dBook.imageUrl!=null?Image.network(
                                 dBook.imageUrl!,width:350,height:350,fit:BoxFit.fill ,)
-                                  :Icon(Icons.book,size: 350,))
+                                  :Image.asset("assets/images/book.jpeg",width:350,height:350,fit:BoxFit.fill))
                           ),
 
                     );
+                  }, options: CarouselOptions(
+                  height: 350,
+                  viewportFraction: 0.9,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 4),
+                  autoPlayAnimationDuration: Duration(milliseconds: 900),
+                  enlargeCenterPage: true,
+                  onPageChanged: (index,reason){
+                    setState(() {
+                      _currentIndex=index;
+                    });
                   },
+                  autoPlayCurve: Curves.easeInOut,
+                  enableInfiniteScroll: true,
+                  aspectRatio: 16/9
+
+
+                ),
                 ),
               ),
             ),
@@ -178,7 +170,8 @@ late Timer _timer;
                   padding: const EdgeInsets.only(left: 300),
                   child: Text("more",
                     style: TextStyle(fontSize: 20, color: Colors.deepPurple),),
-                )),
+                )
+            ),
             SizedBox(height: 11,),
 
 

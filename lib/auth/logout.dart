@@ -1,4 +1,4 @@
-import 'package:book/login.dart';
+import 'package:book/auth/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +9,6 @@ class LogOut extends StatefulWidget{
 }
 
 class _LogOut extends State<LogOut>{
-  final firebaseAuth=FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,10 +21,16 @@ class _LogOut extends State<LogOut>{
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Logged Out :(",style: TextStyle(fontSize: 35,color: Colors.black54,fontWeight: FontWeight.w500),),
+              Text("Logged Out :(",
+                style: TextStyle(
+                    fontSize: 35,
+                    color: Colors.black54,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: "FontMain"),
+              ),
               SizedBox(height: 21,),
               ElevatedButton(onPressed: (){
-                logout(context);
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login()));
               }
               , child: Text("Login"))
             ],
@@ -34,9 +39,5 @@ class _LogOut extends State<LogOut>{
       ),
     );
   }
-  void logout(BuildContext context) async{
-    await firebaseAuth.signOut();
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login()));
 
-  }
 }

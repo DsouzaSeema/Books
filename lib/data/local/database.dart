@@ -11,8 +11,5 @@ abstract class BookmarkDatabase extends FloorDatabase{
   BookmarkDao get bookmarkDao;
 }
 
-Future<BookmarkDatabase> initDatabase() async{
-  final database=await $FloorBookmarkDatabase.databaseBuilder('bookmarks.db').build();
-      return database;
-}
+
 
