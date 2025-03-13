@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'data/local/database.dart';
+part of 'database.dart';
 
 // **************************************************************************
 // FloorGenerator
@@ -96,7 +96,7 @@ class _$BookmarkDatabase extends BookmarkDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `BookmarkEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `imageUrl` TEXT NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `BookmarkEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL, `imageUrl` TEXT NOT NULL, `userId` TEXT)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -121,7 +121,8 @@ class _$BookmarkDao extends BookmarkDao {
             (BookmarkEntity item) => <String, Object?>{
                   'id': item.id,
                   'title': item.title,
-                  'imageUrl': item.imageUrl
+                  'imageUrl': item.imageUrl,
+                  'userId': item.userId
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -133,12 +134,15 @@ class _$BookmarkDao extends BookmarkDao {
   final InsertionAdapter<BookmarkEntity> _bookmarkEntityInsertionAdapter;
 
   @override
-  Future<List<BookmarkEntity>> getAllBookmarks() async {
-    return _queryAdapter.queryList('SELECT * FROM BookmarkEntity',
+  Future<List<BookmarkEntity>> getAllBookmarks(String userId) async {
+    return _queryAdapter.queryList(
+        'SELECT * FROM BookmarkEntity WHERE userId=?1',
         mapper: (Map<String, Object?> row) => BookmarkEntity(
             id: row['id'] as int?,
             title: row['title'] as String,
-            imageUrl: row['imageUrl'] as String));
+            imageUrl: row['imageUrl'] as String,
+            userId: row['userId'] as String?),
+        arguments: [userId]);
   }
 
   @override
@@ -148,15 +152,24 @@ class _$BookmarkDao extends BookmarkDao {
         mapper: (Map<String, Object?> row) => BookmarkEntity(
             id: row['id'] as int?,
             title: row['title'] as String,
-            imageUrl: row['imageUrl'] as String),
+            imageUrl: row['imageUrl'] as String,
+            userId: row['userId'] as String?),
         arguments: [title]);
   }
 
   @override
-  Future<void> deleteBook(String title) async {
+  Future<void> deleteBook(
+    String title,
+    String userId,
+  ) async {
     await _queryAdapter.queryNoReturn(
-        'DELETE FROM BookmarkEntity WHERE title=?1',
-        arguments: [title]);
+        'DELETE FROM BookmarkEntity WHERE title=?1 AND userId=?2',
+        arguments: [title, userId]);
+  }
+
+  @override
+  Future<void> clearAllBooks() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM BookmarkEntity');
   }
 
   @override

@@ -39,14 +39,16 @@ class _MoreState extends State<More>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("More"),
-        backgroundColor: Colors.blue,
+        iconTheme: IconThemeData(color: Colors.white),
+        title: Text("More",style: TextStyle(color: Colors.white),),
+        backgroundColor: Colors.blueGrey,
       ),
       body:
       Books.isEmpty?Center(child:CircularProgressIndicator()):
       Container(
         height: double.infinity,
         width: double.infinity,
+        color: Colors.blueGrey.shade50,
         child: GridView.builder(
           itemBuilder: (context,index){
             BookResponse books=Books[index];
@@ -56,9 +58,8 @@ class _MoreState extends State<More>{
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>BookDetails(query:books.title!)));
                 },
-
                   child:  Card(
-                       color: Colors.blue.shade50,
+                       color: Colors.blueGrey.shade100,
                       child: Center(
                         child: Column(
                           children: [

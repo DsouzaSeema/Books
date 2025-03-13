@@ -6,6 +6,7 @@ import 'package:book/ui/home.dart';
 import 'package:book/auth/login.dart';
 import 'package:book/auth/logout.dart';
 import 'package:book/ui/splash_screen.dart';
+import 'package:book/util/bookmark_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<BookResponse> searchResults=[];
   final dioService _dioService=dioService();
   final firebaseAuth=FirebaseAuth.instance;
-
+  late  BookmarkRepository bookmarkRepository;
 
 
   void updateSearchResults(String query) async{
@@ -77,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue.shade400,
+        backgroundColor: Colors.blueGrey.shade600,
         actions: [
           SizedBox(
             width: 380,
@@ -108,6 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(width: 60,
                       child: ElevatedButton(onPressed: (){
                           logout(context);
+                          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>LogOut()));
                       },
                           child: Icon(Icons.logout,semanticLabel:"LogOut"),
                       ),
@@ -132,9 +134,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
       ,
     bottomNavigationBar: BottomNavigationBar(
+      elevation: 4,
+      backgroundColor: Colors.blueGrey.shade100,
       currentIndex: _selectedIndex,
     onTap: _onItemTapped,
-    selectedItemColor: Colors.deepPurple,
+    selectedItemColor: Colors.black,
     unselectedItemColor: Colors.grey,
     items: const[
       BottomNavigationBarItem(
@@ -178,6 +182,7 @@ Widget searchBar()
 
   void logout(BuildContext context) async{
     await firebaseAuth.signOut();
+    await bookmarkRepository.clearLocalBookmarks();
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LogOut()));
 
   }

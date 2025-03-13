@@ -1,9 +1,12 @@
 
+import 'dart:io';
+
 import 'package:book/auth/login.dart';
 import 'package:book/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SignUp extends StatefulWidget{
   @override
@@ -18,84 +21,89 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      backgroundColor: Colors.teal,
-    ),
-    body: SingleChildScrollView(
-
-
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-
-            children: [
-              SizedBox(height: 50,),
-              Text("Sign Up",style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold,color: Colors.teal,fontFamily: "FontMain"),),
-              SizedBox(height: 30,),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller:emailController ,
-                  decoration: InputDecoration(
-                    label: Text("Email"),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(21),
-                    )
-                  ),
-                ),
-              ),
-              SizedBox(height: 11,),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller:newPassController ,
-                  decoration: InputDecoration(
-                      label: Text("New Password"),
+  return 
+    Scaffold(
+      appBar: AppBar(
+        leading: IconButton(icon:Icon(Icons.arrow_back,color: Colors.white,),onPressed: (){
+          SystemNavigator.pop();
+        },),
+        backgroundColor: Colors.blueGrey,
+      ),
+      body: SingleChildScrollView(
+      
+      
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+      
+              children: [
+                SizedBox(height: 50,),
+                Text("Sign Up",style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold,color: Colors.blueGrey,fontFamily: "FontMain"),),
+                SizedBox(height: 30,),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    controller:emailController ,
+                    decoration: InputDecoration(
+                      label: Text("Email"),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(21),
                       )
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 11,),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller:confPassController ,
-                  decoration: InputDecoration(
-                      label: Text("Confirm Password"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(21),
-                      )
-                  ),
-                ),
-              ),
-              SizedBox(height: 21,),
-              ElevatedButton(
-                  onPressed:(){
-                    registerUser();
-                  },
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.teal.shade700),
-                  child: Text("Sign Up",style: TextStyle(color: Colors.white,fontSize: 20),)
-              ),
-              SizedBox(height: 15,),
-
-              TextButton(
-                  onPressed: (){
-                    Navigator.pushReplacement(
-                        context, MaterialPageRoute(
-                        builder: (context){
-                          return Login();
-                        }
+                SizedBox(height: 11,),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    controller:newPassController ,
+                    decoration: InputDecoration(
+                        label: Text("New Password"),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(21),
                         )
-                    );
-                  },
-                  child: Text("Already Signed up!! LOGIN"))
-            ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 11,),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    controller:confPassController ,
+                    decoration: InputDecoration(
+                        label: Text("Confirm Password"),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(21),
+                        )
+                    ),
+                  ),
+                ),
+                SizedBox(height: 21,),
+                ElevatedButton(
+                    onPressed:(){
+                      registerUser();
+                    },
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey.shade700),
+                    child: Text("Sign Up",style: TextStyle(color: Colors.white,fontSize: 20),)
+                ),
+                SizedBox(height: 15,),
+      
+                TextButton(
+                    onPressed: (){
+                      Navigator.pushReplacement(
+                          context, MaterialPageRoute(
+                          builder: (context){
+                            return Login();
+                          }
+                          )
+                      );
+                    },
+                    child: Text("Already Signed up!! LOGIN"))
+              ],
+            ),
           ),
-        ),
+      
 
-  );
+    );
   }
 
   String? validatePassword(String password){

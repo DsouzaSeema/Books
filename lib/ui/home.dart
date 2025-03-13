@@ -44,193 +44,200 @@ class _Home extends State<Home> {
     return Scaffold(
       body:discoverBooks.isEmpty || flutterBooks.isEmpty || popularBooks.isEmpty?
       Center(child:Lottie.asset('assets/lottie/Animation_loading.json',height: 100,width: 100)):
-      SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 11),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Text("Discover",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28)),
-            ),
-            SizedBox(height: 11),
-            Center(
-              child: Container(
-                width: 350,
-                height: 350,
-                color: Colors.blue.shade50,
-                child: CarouselSlider.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index,realIndex) {
-                    BookResponse dBook=discoverBooks[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                          child: InkWell(
-                              onTap: () {
-                                Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) => BookDetails(query: dBook.title!,)));
-                              },
-                              child:
-                              dBook.imageUrl!=null?Image.network(
-                                dBook.imageUrl!,width:350,height:350,fit:BoxFit.fill ,)
-                                  :Image.asset("assets/images/book.jpeg",width:350,height:350,fit:BoxFit.fill))
-                          ),
-
-                    );
-                  }, options: CarouselOptions(
+      Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: Colors.blueGrey.shade50,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 11),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text("Discover",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28)),
+              ),
+              SizedBox(height: 11),
+              Center(
+                child: Container(
+                  width: 350,
                   height: 350,
-                  viewportFraction: 0.9,
-                  autoPlay: true,
-                  autoPlayInterval: Duration(seconds: 4),
-                  autoPlayAnimationDuration: Duration(milliseconds: 900),
-                  enlargeCenterPage: true,
-                  onPageChanged: (index,reason){
-                    setState(() {
-                      _currentIndex=index;
-                    });
-                  },
-                  autoPlayCurve: Curves.easeInOut,
-                  enableInfiniteScroll: true,
-                  aspectRatio: 16/9
+                  color: Colors.blueGrey.shade100,
+                  child: CarouselSlider.builder(
+                    itemCount: 10,
+                    itemBuilder: (context, index,realIndex) {
+                      BookResponse dBook=discoverBooks[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                            child: InkWell(
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) => BookDetails(query: dBook.title!,)
+                                  )
+                                  );
+                                },
+                                child:
+                                dBook.imageUrl!=null?Image.network(
+                                  dBook.imageUrl!,width:350,height:350,fit:BoxFit.fill ,)
+                                    :Image.asset("assets/images/book.jpeg",width:350,height:350,fit:BoxFit.fill))
+                            ),
+
+                      );
+                    }, options: CarouselOptions(
+                    height: 350,
+                    viewportFraction: 0.9,
+                    autoPlay: true,
+                    autoPlayInterval: Duration(seconds: 4),
+                    autoPlayAnimationDuration: Duration(milliseconds: 900),
+                    enlargeCenterPage: true,
+                    onPageChanged: (index,reason){
+                      setState(() {
+                        _currentIndex=index;
+                      });
+                    },
+                    autoPlayCurve: Curves.easeInOut,
+                    enableInfiniteScroll: true,
+                    aspectRatio: 16/9
 
 
-                ),
+                  ),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 11),
-            InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => More(query: "best seller",)));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 300),
-                  child: Text("more",
-                      style: TextStyle(fontSize: 20, color: Colors.deepPurple)),
-                )),
-            SizedBox(height: 11,),
+              SizedBox(height: 11),
+              InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => More(query: "best seller",)));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 300),
+                    child: Text("more",
+                        style: TextStyle(fontSize: 20, color: Colors.deepPurple)),
+                  )),
+              SizedBox(height: 11,),
 
 
-            //FLUTTER
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Text("Flutter",
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-            ),
-            SizedBox(height: 11),
-            Center(
-              child: Container(
-                color: Colors.blue.shade50,
-                height: 250,
-                width: double.infinity,
-                child: ListView.builder(
-                  itemCount: 10,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    BookResponse fbook=flutterBooks[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => BookDetails(query: fbook.title!,)));
-                        },
-                        child: Container(
-                          width: 150,
-                          height: 70,
-                          color: Colors.blue.shade50,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                          fbook.imageUrl!=null?Image.network(
-                            fbook.imageUrl!,width:150,height:180,fit:BoxFit.fill ,)
-                              :Icon(Icons.book,size: 100,),
-                              SizedBox(height: 4,),
-                              Text(fbook.title??"No title",maxLines: 1,overflow: TextOverflow.ellipsis,),
-                            ],
+              //FLUTTER
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text("Flutter",
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+              ),
+              SizedBox(height: 11),
+              Center(
+                child: Container(
+                  color: Colors.blueGrey.shade100,
+                  height: 250,
+                  width: double.infinity,
+                  child: ListView.builder(
+                    itemCount: 10,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      BookResponse fbook=flutterBooks[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => BookDetails(query: fbook.title!,)));
+                          },
+                          child: Container(
+                            width: 150,
+                            height: 70,
+                            color: Colors.blueGrey.shade100,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                            fbook.imageUrl!=null?Image.network(
+                              fbook.imageUrl!,width:150,height:180,fit:BoxFit.fill ,)
+                                :Image.asset("assets/images/book.jpeg",width:150,height: 180,fit: BoxFit.fill ,),
+                                SizedBox(height: 4,),
+                                Text(fbook.title??"No title",maxLines: 1,overflow: TextOverflow.ellipsis,),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 11),
-            InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => More(query: "flutter programming",)));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 300),
-                  child: Text("more",
-                    style: TextStyle(fontSize: 20, color: Colors.deepPurple),),
-                )
-            ),
-            SizedBox(height: 11,),
+              SizedBox(height: 11),
+              InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => More(query: "flutter programming",)));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 300),
+                    child: Text("more",
+                      style: TextStyle(fontSize: 20, color: Colors.deepPurple),),
+                  )
+              ),
+              SizedBox(height: 11,),
 
 
-            //POPULAR
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Text("Popular",
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-            ),
-            SizedBox(height: 11),
-            Center(
-              child: Container(
-                color: Colors.blue.shade50,
-                height: 250,
-                width: double.infinity,
-                child: ListView.builder(
-                  itemCount: 10,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    BookResponse pbook=popularBooks[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => BookDetails(query: pbook.title!,)));
-                        },
-                        child: Container(
-                          width: 150,
-                          height: 70,
-                          color: Colors.blue.shade50,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                          pbook.imageUrl!=null?Image.network(pbook.imageUrl!,width:150,height:180,fit:BoxFit.fill ,):Icon(Icons.book,size: 100,),
-                              SizedBox(height: 4,),
-                              Text(pbook.title??"No title",maxLines: 1,overflow: TextOverflow.ellipsis,),
-                            ],
+              //POPULAR
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text("Popular",
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+              ),
+              SizedBox(height: 11),
+              Center(
+                child: Container(
+                  color: Colors.blueGrey.shade100,
+                  height: 250,
+                  width: double.infinity,
+                  child: ListView.builder(
+                    itemCount: 10,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      BookResponse pbook=popularBooks[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => BookDetails(query: pbook.title!,)));
+                          },
+                          child: Container(
+                            width: 150,
+                            height: 70,
+                            color: Colors.blue.shade50,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                            pbook.imageUrl!=null?Image.network(pbook.imageUrl!,width:150,height:180,fit:BoxFit.fill ,):Image.asset("assets/images/book.jpeg",width:150,height: 180,fit: BoxFit.fill ,),
+                                SizedBox(height: 4,),
+                                Text(pbook.title??"No title",maxLines: 1,overflow: TextOverflow.ellipsis,),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
 
-            InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => More(query: "popular books")));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 300),
-                  child: Text("more",
-                    style: TextStyle(fontSize: 20, color: Colors.deepPurple),),
-                )),
-            SizedBox(height: 11,),
-          ],
+              InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => More(query: "popular books")));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 300),
+                    child: Text("more",
+                      style: TextStyle(fontSize: 20, color: Colors.deepPurple),),
+                  )),
+              SizedBox(height: 11,),
+            ],
+          ),
         ),
       ),
     );

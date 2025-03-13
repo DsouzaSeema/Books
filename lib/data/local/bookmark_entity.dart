@@ -6,6 +6,6 @@ class BookmarkEntity{
   @PrimaryKey(autoGenerate: true)
   final int? id;
   final String title, imageUrl;
-
-  BookmarkEntity({this.id,required this.title,required this.imageUrl});
+  final String? userId;
+  BookmarkEntity({this.id,required this.title,required this.imageUrl,this.userId});
 }

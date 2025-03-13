@@ -12,7 +12,7 @@ class dioService {
             baseUrl: baseUrl,
         ),
     );
-initializeInterceptors();
+    initializeInterceptors();
   }
 
   Future<List<BookResponse>> fetchBooks(String query) async{

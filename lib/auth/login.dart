@@ -3,6 +3,7 @@ import 'package:book/auth/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Login extends StatefulWidget{
   @override
@@ -18,7 +19,10 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.blueGrey,
+        leading: IconButton(icon:Icon(Icons.arrow_back,color: Colors.white,),onPressed: (){
+          SystemNavigator.pop();
+        },),
       ),
       body:
 
@@ -28,7 +32,11 @@ class _LoginState extends State<Login> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 50,),
-                Text("Login",style: TextStyle(fontSize: 50,fontWeight: FontWeight.bold,color: Colors.teal,fontFamily: "FontMain"),),
+                Text("Login",style: TextStyle(fontSize: 50,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueGrey,
+                    fontFamily: "FontMain"),
+                ),
                 SizedBox(height: 30,),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -56,11 +64,11 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(height: 11,),
+
                 TextButton(
                     onPressed: (){
                       forgotPassword();
                     },
-
                     child:Padding(
                       padding: const EdgeInsets.only(right: 200.0),
                       child: Text("Forgot password",style: TextStyle(color: Colors.red)),
@@ -71,7 +79,7 @@ class _LoginState extends State<Login> {
                     onPressed:(){
                       loginUser();
                     },
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.teal.shade700),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey.shade500),
                     child: Text("Login",style: TextStyle(fontSize: 20,color: Colors.white),),
                 ),
                 SizedBox(height: 15,),
